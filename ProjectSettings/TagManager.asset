@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - wall
+  - bossroom
   layers:
   - Default
   - TransparentFX

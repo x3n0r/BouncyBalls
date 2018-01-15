@@ -8,12 +8,12 @@ public class ModularWorldGenerator : MonoBehaviour
     public Module _StartModule;
     public Module _BossModule;
     public Module _CloseModule;
-    public GameObject Player;
+    public GameObject Player1;
+	public GameObject Player2;
     public string[] _SmoothModules;
     public int _Iterations = 7;
     public int _SmoothIterations = 5;
     private GameObject MainGameObject;
-    public float high;
     
 
     public struct DataStruct
@@ -62,17 +62,16 @@ public class ModularWorldGenerator : MonoBehaviour
         var pendingExits = new List<ModuleConnector>(startModule.GetExits());
         List<ModuleConnector> globalExits = new List<ModuleConnector>(pendingExits);
 
-        Player.transform.position = new Vector3(MainGameObject.transform.position.x, MainGameObject.transform.position.y + high, MainGameObject.transform.position.z);
+        Player1.transform.position = new Vector3(MainGameObject.transform.position.x+0.6f-4.8f, MainGameObject.transform.position.y + 1f, MainGameObject.transform.position.z);
+		Player2.transform.position = new Vector3(MainGameObject.transform.position.x-0.6f-4.7f, MainGameObject.transform.position.y + 1f, MainGameObject.transform.position.z);
 
 
         int i = 0;
         for (int iteration = 0; iteration < _Iterations; iteration++)
         {
-            Debug.Log("here1");
             var newExits = new List<ModuleConnector>();
             foreach (var pendingExit in pendingExits)
             {
-                Debug.Log("here2");
                 //ModuleConnector lastconnector = new ModuleConnector();
                 bool found = false;
                 List<string> pendingExitList = pendingExit.Tags.ToList();
@@ -93,7 +92,7 @@ public class ModularWorldGenerator : MonoBehaviour
                             MatchExits(pendingExit, connector);
                             if (!checkBoundData(newModule.GetComponent<BoxCollider>().bounds, newModule.name))
                             {
-                                Debug.Log("intersect");
+                                //Debug.Log("intersect");
                                 //if setting fails remove block from random list. TODO :)
                                 connectorsInModule.Remove(connector);
                                 //when nothing found add to globalexits for block and smoothing
